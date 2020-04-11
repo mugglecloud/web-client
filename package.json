@@ -1,0 +1,57 @@
+{
+  "name": "@mugglecloud/web-client",
+  "version": "0.1.0",
+  "author": "mugglecloud <mugglecloud@163.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.9.7",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.9.6",
+    "@mugglecloud/web-runtime": "^1.0.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "animejs": "^3.1.0",
+    "framer": "^1.1.7",
+    "framer-motion": "^1.10.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "3.9.0",
+    "react-scripts": "3.4.1",
+    "react-sizeme": "^2.6.12",
+    "react-svg-inline": "^2.1.1",
+    "short-uuid": "^3.1.1",
+    "video.js": "^7.7.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mugglecloud/web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mugglecloud/web/issues"
+  }
+}
