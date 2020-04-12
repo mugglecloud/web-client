@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useRef } from "react";
-// import { useMotionValue } from "framer-motion";
 
 function ScrollListener({ children, scrollOffsetHeight }) {
   const ref = useRef();

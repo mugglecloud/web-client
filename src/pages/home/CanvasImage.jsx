@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Divider } from "@material-ui/core";
 import { useStore } from "@mugglecloud/web-runtime";
-import { Scroll, Frame, Stack } from "framer";
+import { Frame, Stack, useMotionValue } from "framer";
 
 import Canvas from "components/Canvas";
+import { useEffect } from "react";
 // import SwiperGroup, { useSwiper } from "components/SwiperGroup";
 
 const useStyles = makeStyles(({ border, color }) => ({
@@ -85,7 +86,7 @@ const CanvasInfo = ({ children, breakpoint, duration }) => {
 
 const CanvasImageList = (props) => {
   const classes = useStyles();
-  const count = 0;
+  const [count, setCount] = useState(props.scroll.get());
   const {
     state: {
       spotlight: { start, breakpoints },
@@ -108,6 +109,14 @@ const CanvasImageList = (props) => {
   }
 
   const duration = 800;
+
+  useEffect(() => {
+    props.scroll.onChange((v) => {
+      setCount(v);
+    });
+  }, []);
+
+  console.log(src);
 
   return (
     <Frame width="100%" height="100%">
@@ -141,11 +150,22 @@ export default React.forwardRef((props, ref) => {
     },
   } = useStore();
 
-  const handleScroll = (v) => {};
+  const scroll = useMotionValue(0);
+
+  const handleScroll = (v) => {
+    const sign = v.deltaY / Math.abs(v.deltaY);
+    const value = Math.min(size, Math.max(0, scroll.get() + sign));
+    scroll.set(value);
+    console.log(value);
+  };
+
+  const handlePan = (event, info) => {
+    console.log(info.delta.y);
+  };
 
   return (
-    <Frame size="100%" onScroll={handleScroll}>
-      <CanvasImageList />
+    <Frame size="100%" onWheel={handleScroll} onPan={handlePan}>
+      <CanvasImageList scroll={scroll} />
     </Frame>
   );
 });

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useStore, useOvermind } from "@mugglecloud/web-runtime";
-import { Scroll, Frame } from "framer";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { Scroll, Frame, motion, useMotionValue, useTransform } from "framer";
 
 import BackgroundVideo from "components/BackgroundVideo";
 import ScrollListener from "components/ScrollListener";
