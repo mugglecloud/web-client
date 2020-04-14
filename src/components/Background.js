@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-export default (props) => {
+export default React.forwardRef((props, ref) => {
   const [scale, setScale] = useState(1);
   const classes = useStyles({ backgroundImage: props.src, scale });
 
@@ -24,8 +24,8 @@ export default (props) => {
   }, []);
 
   return (
-    <Frame width="100%" height="100%" overflow="hidden">
+    <Frame width="100%" height="100%" overflow="hidden" ref={ref}>
       <div className={classes.root}></div>
     </Frame>
   );
-};
+});

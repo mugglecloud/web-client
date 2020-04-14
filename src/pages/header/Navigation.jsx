@@ -5,6 +5,7 @@ import {
   Link,
   Grow,
   LinearProgress,
+  useTheme,
 } from "@material-ui/core";
 import { useOvermind } from "@mugglecloud/web-runtime";
 
@@ -19,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
     listStyle: "none",
+
+    "& *": {
+      userSelect: "none",
+    },
 
     "& > * + *": {
       // marginLeft: theme.spacing(3),
@@ -46,14 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ColorLinearProgress = withStyles({
+const ColorLinearProgress = withStyles((theme) => ({
   colorPrimary: {
-    backgroundColor: "#b3b3b3",
+    backgroundColor: theme.colorPrimary || "#b3b3b3",
   },
   barColorPrimary: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.barColorPrimary || "#fff",
   },
-})(LinearProgress);
+}))(LinearProgress);
 
 const MemoizedProgress = (props) => {
   const { state } = useOvermind();
@@ -62,25 +67,28 @@ const MemoizedProgress = (props) => {
   return <ColorLinearProgress variant="determinate" value={nav.value} />;
 };
 
-const MemoizedLink = (props) => {
+const MemoizedLink = ({ index, text, ...props }) => {
   const { state, actions } = useOvermind();
 
   const preventDefault = (e) => {
     e.preventDefault();
-    actions.header.setActive(props.index);
+    actions.header.setActive(index);
   };
 
-  const isActive = props.index === state.header.active;
+  const isActive = index === state.header.active;
+
+  const theme = useTheme();
 
   return (
     <Link
       onClick={(e) => preventDefault(e)}
-      color="inherit"
+      color={"inherit"}
       underline="none"
       className={isActive ? "active" : ""}
+      style={{ color: theme.linkColor }}
     >
-      {props.text}
-      <MemoizedProgress index={props.index} />
+      {text}
+      <MemoizedProgress index={index} {...props} />
     </Link>
   );
 };
@@ -101,7 +109,11 @@ export default ({ className, ...props }) => {
           timeout={i * 500}
         >
           <li>
-            <MemoizedLink text={nav.text} index={i} />
+            <MemoizedLink
+              text={nav.text}
+              index={i}
+              backgroundColor={nav.backgroundColor}
+            />
           </li>
         </Grow>
       ))}

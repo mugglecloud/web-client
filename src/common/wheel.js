@@ -84,7 +84,7 @@ window.ontouchmove = (e) => {
     const deltaX = touch.pageX - current.pageX;
     const deltaY = touch.pageY - current.pageY;
 
-    console.log("deltaT", deltaT);
+    // console.log("deltaT", deltaT);
 
     handleWheel({
       deltaX: deltaX && (deltaX / Math.abs(deltaX)) * -1,

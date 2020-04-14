@@ -5,6 +5,7 @@ import { Frame, Stack } from "framer";
 import VideoPlayButton from "./VideoPlayButton";
 import CloseButton from "./CloseButton";
 import Video from "./Video";
+import { useMobile } from "common/utils";
 
 const variants = {
   hidden: {
@@ -38,16 +39,18 @@ export default (props) => {
     props.onFull && props.onFull(!isFull);
   };
 
+  const isMobile = useMobile();
+
   return (
     <Frame
       variants={variants}
       initial="hidden"
       animate={!full ? "visible" : "full"}
-      transition={{ duration }}
+      transition={{ duration: props.duration || duration }}
       center
       border="12px solid #35017F"
       backgroundColor="rgba(0,0,0,.4)"
-      style={{ maxWidth: "100%" }}
+      style={{ maxWidth: isMobile && !full ? "80%" : "100%", zIndex: 99 }}
     >
       <Frame
         visible={!full}

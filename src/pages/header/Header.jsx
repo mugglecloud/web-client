@@ -1,5 +1,11 @@
-import React, { useState, useMemo, useCallback } from "react";
-import { makeStyles, Fade, Hidden } from "@material-ui/core";
+import React from "react";
+import {
+  makeStyles,
+  Fade,
+  Hidden,
+  ThemeProvider,
+  createMuiTheme,
+} from "@material-ui/core";
 
 // import Fade from "components/Fade";
 import Logo from "components/Logo";
@@ -9,6 +15,7 @@ import Navigation from "./Navigation";
 import ToggleButton from "./ToggleButton";
 import MainMenu from "./MainMenu";
 import { useOvermind } from "@mugglecloud/web-runtime";
+import { useMobile } from "common/utils";
 
 const useStyles = makeStyles({
   root: {
@@ -52,33 +59,48 @@ const useStyles = makeStyles({
 });
 
 const Header = () => {
+  const isMobile = useMobile();
   const classes = useStyles();
   const { state } = useOvermind();
 
-  const style = useMemo(
-    () => (state.header.visible ? {} : { transform: "translateY(-100%)" }),
-    [state.header.visible]
-  );
+  const style = state.header.visible ? {} : { transform: "translateY(-100%)" };
+
+  if (isMobile) {
+    style.padding = "20px 20px 0";
+  }
+
+  const theme = state.header.current
+    ? {
+        linkColor: state.header.current.barColorPrimary,
+        colorPrimary: state.header.current.colorPrimary,
+        barColorPrimary: state.header.current.barColorPrimary,
+        toggleBackgroundColor: state.header.menuCollapsed
+          ? state.header.current.barColorPrimary
+          : null,
+      }
+    : {};
 
   return (
-    <header style={style} className={classes.root}>
-      <Logo className={classes.logo} fill="white" svg="/logo.svg" />
-      {/* <Hidden xsDown>
-        <Navigation
-          className={classes.nav}
-          in={menuCollapsed}
-          navs={navs}
-          active={active}
-          onActive={setActive}
+    <ThemeProvider theme={createMuiTheme(theme)}>
+      <header style={style} className={classes.root}>
+        <Logo
+          className={classes.logo}
+          fill={
+            state.header.menuCollapsed ? theme.linkColor || "white" : "white"
+          }
+          svg="/logo.svg"
         />
-      </Hidden> */}
-      <Navigation className={classes.nav} />
-      <FlexPadding />
-      <ToggleButton className={classes.toggle} />
-      <Fade in={!state.header.menuCollapsed} timeout={1500}>
-        <MainMenu className={classes["main-menu"]}></MainMenu>
-      </Fade>
-    </header>
+        <Hidden xsDown>
+          <Navigation className={classes.nav} />
+        </Hidden>
+
+        <FlexPadding />
+        <ToggleButton className={classes.toggle} />
+        <Fade in={!state.header.menuCollapsed} timeout={1500}>
+          <MainMenu className={classes["main-menu"]}></MainMenu>
+        </Fade>
+      </header>
+    </ThemeProvider>
   );
 };
 

@@ -5,8 +5,20 @@ export const state = {
   navs: [
     { text: "introduction", name: "intro", value: 0 },
     { text: "the technology", name: "tech", value: 100 },
-    { text: "tech spotlight", name: "spotlight", value: 0 },
-    { text: "why muggle?", name: "muggle", value: 100 },
+    {
+      text: "tech spotlight",
+      name: "spotlight",
+      value: 0,
+      barColorPrimary: "#320d7f",
+      colorPrimary: "#a580f2",
+    },
+    {
+      text: "why muggle?",
+      name: "muggle",
+      value: 100,
+      barColorPrimary: "#320d7f",
+      colorPrimary: "#a580f2",
+    },
   ],
 
   intro: {

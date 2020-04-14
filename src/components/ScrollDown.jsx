@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     "&:hover > i": {
-      backgroundColor: "#fff",
-      borderColor: "#fff",
+      backgroundColor: theme.scrollDownBorderColor || "#fff",
+      borderColor: theme.scrollDownBorderColor || "#fff",
     },
     "&:hover > span": {
       opacity: 0,
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     height: "44px",
     display: "block",
     borderRadius: "13px",
-    border: "2px solid #b3b3b3",
+    border: `2px solid ${theme.scrollDownBorderColor || "#b3b3b3"}`,
     margin: "0 auto",
 
     "&:before": {
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       width: "6px",
       height: "6px",
       content: '""',
-      backgroundColor: "#b3b3b3",
+      backgroundColor: theme.scrollDownHoverPointColor || "#b3b3b3",
       left: "50%",
       marginLeft: "-3px",
       borderRadius: "50%",
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     top: "-24px",
     letterSpacing: "3px",
     textTransform: "uppercase",
-    color: "#fff",
+    color: theme.scrollDownBorderColor || "#fff",
     fontSize: "12px",
     lineHeight: 1.4,
   },

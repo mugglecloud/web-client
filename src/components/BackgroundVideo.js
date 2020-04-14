@@ -10,7 +10,12 @@ export default React.memo(
       opacity: 0.7,
       objectFit: "cover",
     },
-  })(({ classes, ...props }) => (
-    <Video className={classes.video} {...props} autoPlay />
+  })(({ className, classes, ...props }) => (
+    <Video
+      className={[classes.video, className].join(" ")}
+      {...props}
+      autoPlay
+      controls={false}
+    />
   ))
 );

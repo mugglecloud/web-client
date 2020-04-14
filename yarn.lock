@@ -1278,10 +1278,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@mugglecloud/framer@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@mugglecloud/framer/-/framer-1.0.0.tgz#1fdd731cf1db5aacdcf01ae3441367df3b58a17e"
-  integrity sha512-Jk8/YwSyX5prl9yL8vpjjq0TNwNfp6I1BeVnSyyLMjKjQfiYEPpJemj8H5HA2tfdicyoyy96INtblaGyWMgyPw==
+"@mugglecloud/framer@^1.1.17":
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/@mugglecloud/framer/-/framer-1.1.17.tgz#fc3d975b40195182bd39b128f9d0f5249dee0bb7"
+  integrity sha512-voRZ1X8gQlvjfmB6PVS+F1NLA3QecJLoWHGwWzuivuKTEgp6r4/65C2zD7RHkNH9BwT/LvXlKdsOQToBrSI2eA==
   dependencies:
     framer-motion "^1.10.3"
 
@@ -9530,6 +9530,16 @@ requires-port@^1.0.0:
   resolved "https://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
+
+resize-observer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/resize-observer/-/resize-observer-1.0.0.tgz#4f8380b73b411af4ed7d916fe85a2d59900e71ef"
+  integrity sha512-D7UFShDm2TgrEDEyeg+/tTEbvOgPWlvPAfJtxiKp+qutu6HowmcGJKjECgGru0PPDIj3SAucn3ZPpOx54fF7DQ==
+
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/resolve-cwd/download/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -9591,6 +9601,14 @@ resolve@^1.10.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.15.1, resolve@^1.3
   integrity sha1-J73N7/6vLWJEuVuw+fS0ZTRR8+g=
   dependencies:
     path-parse "^1.0.6"
+
+respo@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/respo/-/respo-1.0.3.tgz#ac94f838ebc6f36cc714c4a6444bd5c5247ff9fb"
+  integrity sha512-0Q6An/GfSonHjjsdjk0JQ2W/5PbaU/A9Xo0sDY16yhFqxEe21lGG8lICigUbf33gwvDaSVw/crYNTOgfBzTMYg==
+  dependencies:
+    resize-observer "^1.0.0"
+    resize-observer-polyfill "^1.5.1"
 
 restore-cursor@^3.1.0:
   version "3.1.0"

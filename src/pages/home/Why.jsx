@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect } from "react";
 import anime from "animejs";
-import { makeStyles, useMediaQuery } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
-import ScrollGroup from "containers/ScrollGroup";
+import { useMobile } from "common/utils";
+import DragSwiper from "components/DragSwiper";
+
+// import ScrollGroup from "containers/ScrollGroup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,48 +19,55 @@ const useStyles = makeStyles((theme) => ({
 
 const Why = React.forwardRef(({ ...props }, ref) => {
   const classes = useStyles();
-  const [updated, forceUpdate] = useState(0);
 
-  const animation = useMemo(
-    () =>
-      anime({
-        targets: "path",
-        strokeDashoffset: [anime.setDashoffset, 0],
-        easing: "cubicBezier(.5, .05, .1, .3)",
-        duration: 1000,
-        delay: function (el, i) {
-          return i * 250;
-        },
-        loop: true,
-        autoplay: true,
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [updated]
-  );
+  const isMobile = useMobile();
 
+  const animation = anime({
+    targets: "svg path",
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: "cubicBezier(.5, .05, .1, .3)",
+    duration: 1000,
+    delay: function (el, i) {
+      return i * 250;
+    },
+    loop: true,
+    autoplay: false,
+  });
   console.log("render why");
 
-  const callback = useCallback(() => {
-    animation.play();
-  }, []);
+  // const callback = useCallback(() => {
+  //   animation.play();
+  // }, [animation]);
+
+  // useEffect(() => {
+  //   window.addEventListener("resize", callback);
+
+  //   return () => {
+  //     window.removeEventListener("resize", callback);
+  //   };
+  // }, [callback]);
+
+  const factor = isMobile ? 0.5 : 1.7;
+  const viewBox = `0 0 ${window.visualViewport.width / factor} ${
+    window.visualViewport.height / factor
+  }`;
 
   useEffect(() => {
-    window.addEventListener("resize", callback);
+    animation.play();
 
     return () => {
-      window.removeEventListener("resize", callback);
+      console.log("paused");
       animation.pause();
     };
-  }, [animation, callback]);
-
-  const viewBox = `0 0 ${window.visualViewport.width / 2} ${
-    window.visualViewport.height / 2
-  }`;
+  }, [animation]);
 
   return (
     <div className={classes.root}>
       <svg viewBox={viewBox} style={{ fill: "none", stroke: "red" }}>
-        <g id="graphic">
+        <g
+          id="graphic"
+          style={{ transform: isMobile ? "translateY(350px)" : "" }}
+        >
           <g>
             <path
               d="M363.8,298.1c-9.8-15-16.2-32.6-16.4-50.4c-0.2-14.1,15.1-22.5,24.9-30.5c10-8.1,20.2-16,30.6-23.7
@@ -1035,17 +1045,9 @@ const Why = React.forwardRef(({ ...props }, ref) => {
 });
 
 export default React.forwardRef((props, ref) => {
-  const classes = useStyles();
-
-  const matches = useMediaQuery("(max-width:600px)");
-
   return (
-    <ScrollGroup
-      // onThreshold={next}
-      ref={ref}
-      className={classes.root}
-    >
+    <DragSwiper onUp={props.onPrev} onDown={props.onNext}>
       <Why {...props} />
-    </ScrollGroup>
+    </DragSwiper>
   );
 });

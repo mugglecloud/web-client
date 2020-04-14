@@ -5,6 +5,8 @@ import { useOvermind } from "@mugglecloud/web-runtime";
 
 import VideoPopup from "components/VideoPopup";
 import Background from "components/Background";
+import Scroll from "components/Scroll";
+import DragSwiper from "components/DragSwiper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.forwardRef((props, ref) => {
+export default React.forwardRef(({ isActive, ...scrollProps }, ref) => {
   const classes = useStyles();
 
   const matches = useMediaQuery("(max-width:600px)");
@@ -26,7 +28,7 @@ export default React.forwardRef((props, ref) => {
   const sources = [
     {
       src:
-        "https://mugglecloud.github.io/oss/feedmusic.com/videos/introducing-feed.mp4",
+        "https://muggleoss.github.io/feedmusic.com/videos/introducing-feed.mp4",
       type: "video/mp4",
     },
   ];
@@ -36,14 +38,15 @@ export default React.forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    if (!props.isActive) actions.header.setVisible(true);
-  }, [props.isActive]);
+    if (!isActive) actions.header.setVisible(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
 
   return (
-    <Frame width="100%" height="100%">
-      <Background src="https://mugglecloud.github.io/oss/feedmusic.com/images/presentation-background.jpg" />
+    <DragSwiper onUp={scrollProps.onPrev} onDown={scrollProps.onNext}>
+      <Background src="https://muggleoss.github.io/feedmusic.com/images/presentation-background.jpg" />
       <Frame
-        visible={props.isActive}
+        visible={isActive}
         width="100%"
         height="100%"
         background="transparent"
@@ -53,9 +56,9 @@ export default React.forwardRef((props, ref) => {
           value={100}
           onFull={handleFull}
           sources={sources}
-          play={props.isActive}
+          play={isActive}
         />
       </Frame>
-    </Frame>
+    </DragSwiper>
   );
 });

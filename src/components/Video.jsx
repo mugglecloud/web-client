@@ -25,6 +25,8 @@ export default ({ className, sources, play, ...props }) => {
 
   return (
     <video
+      x5-video-player-type="h5"
+      playsInline
       controls
       {...props}
       className={[classes.video, className].join(" ")}

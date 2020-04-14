@@ -37,8 +37,8 @@ const Canvas = ({
 }) => {
   const ref = useRef();
 
-  if (width != null) size.width = width;
-  if (height != null) size.height = height;
+  if (width) size.width = width;
+  if (height) size.height = height;
 
   useLayoutEffect(() => {
     const ctx = ref.current.getContext("2d");
@@ -46,9 +46,11 @@ const Canvas = ({
 
     loadImage(src).then((img) => {
       if (aborted) return;
-      console.log(img.width, img.height);
-      size = adjustSize(size.width, size.height, ratio);
-      ctx.drawImage(img, 0, 0, size.width, size.height);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const sizeAdjusted = adjustSize(size.width, size.height, ratio);
+      const x = -(sizeAdjusted.width - size.width) / 2,
+        y = -(sizeAdjusted.height - size.height) / 2;
+      ctx.drawImage(img, x, y, sizeAdjusted.width, sizeAdjusted.height);
     });
 
     return () => {
